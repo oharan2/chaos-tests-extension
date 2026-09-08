@@ -1,0 +1,10 @@
+.git
+.cursor
+*.md
+LICENSE
+OWNERS
+hack
+chaos-tests
+chaos-tests-ext
+chaos-tests-ext.gz
+**/*_test.go

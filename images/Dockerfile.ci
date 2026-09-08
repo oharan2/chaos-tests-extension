@@ -1,0 +1,31 @@
+# ext-builder is ocp/builder:rhel-9-golang-1.26-openshift-5.1 (ci-operator inputs as: ext-builder).
+# prow-scripts is chaos/prow-scripts:latest (FROM quay.io/krkn-chaos/krkn:latest,
+# WORKDIR /home/krkn/krkn-hub, AWS CLI, helm, PYTHONPATH, no ENTRYPOINT).
+# tests is the payload tests image (openshift-tests + oc); ci-operator from: tests replaces this last FROM.
+FROM ext-builder AS build-ext
+WORKDIR /go/src/github.com/RedHatQE/chaos-tests-extension
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+    go build -o /tmp/chaos-tests-ext ./cmd/chaos-tests \
+ && gzip -n -f /tmp/chaos-tests-ext
+
+FROM prow-scripts AS krkn-runtime
+FROM tests
+COPY --from=krkn-runtime /home/krkn /home/krkn
+COPY --from=krkn-runtime /usr/bin/python3.11 /usr/bin/python3.11
+COPY --from=krkn-runtime /usr/lib64/python3.11 /usr/lib64/python3.11
+COPY --from=krkn-runtime /usr/lib/python3.11 /usr/lib/python3.11
+COPY --from=krkn-runtime /usr/local/bin/aws /usr/local/bin/aws
+COPY --from=krkn-runtime /usr/local/aws-cli /usr/local/aws-cli
+COPY --from=krkn-runtime /usr/local/bin/helm /usr/local/bin/helm
+COPY --from=build-ext /tmp/chaos-tests-ext.gz /usr/bin/chaos-tests-ext.gz
+COPY images/ote_wrapper.sh /home/krkn/krkn-hub/ote_wrapper.sh
+ENV PYTHONPATH=/home/krkn/krkn-hub/packages PYTHONUNBUFFERED=1
+WORKDIR /home/krkn/krkn-hub
+USER 0
+RUN chmod 0755 /home/krkn/krkn-hub/ote_wrapper.sh \
+ && (command -v envsubst || dnf install -y gettext jq) \
+ && python3.11 /home/krkn/kraken/run_kraken.py --help \
+ && command -v aws \
+ && command -v oc \
+ && command -v openshift-tests

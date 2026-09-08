@@ -1,0 +1,542 @@
+[
+  {
+    "name": "[sig-chaos] etcd pod disruption",
+    "labels": {
+      "DISRUPTIVE": {},
+      "SLOW": {},
+      "pod": {}
+    },
+    "resources": {
+      "isolation": {
+        "conflict": [
+          "chaos-disruption"
+        ],
+        "taint": [
+          "chaos-disruption"
+        ]
+      },
+      "timeout": "15m"
+    },
+    "source": "openshift:external:chaos",
+    "codeLocations": [
+      "/home/krkn/krkn-hub /bin/bash"
+    ],
+    "lifecycle": "informing",
+    "environmentSelector": {
+      "include": "platform == \"aws\""
+    }
+  },
+  {
+    "name": "[sig-chaos] etcd container hangup",
+    "labels": {
+      "DISRUPTIVE": {},
+      "SLOW": {},
+      "pod": {}
+    },
+    "resources": {
+      "isolation": {
+        "conflict": [
+          "chaos-disruption"
+        ],
+        "taint": [
+          "chaos-disruption"
+        ]
+      },
+      "timeout": "15m"
+    },
+    "source": "openshift:external:chaos",
+    "codeLocations": [
+      "/home/krkn/krkn-hub /bin/bash"
+    ],
+    "lifecycle": "informing",
+    "environmentSelector": {
+      "include": "platform == \"aws\""
+    }
+  },
+  {
+    "name": "[sig-chaos] etcd time skew",
+    "labels": {
+      "DISRUPTIVE": {},
+      "SLOW": {},
+      "pod": {}
+    },
+    "resources": {
+      "isolation": {
+        "conflict": [
+          "chaos-disruption"
+        ],
+        "taint": [
+          "chaos-disruption"
+        ]
+      },
+      "timeout": "10m"
+    },
+    "source": "openshift:external:chaos",
+    "codeLocations": [
+      "/home/krkn/krkn-hub /bin/bash"
+    ],
+    "lifecycle": "informing",
+    "environmentSelector": {
+      "include": "platform == \"aws\""
+    }
+  },
+  {
+    "name": "[sig-chaos] console application outage",
+    "labels": {
+      "DISRUPTIVE": {},
+      "SLOW": {},
+      "pod": {}
+    },
+    "resources": {
+      "isolation": {
+        "conflict": [
+          "chaos-disruption"
+        ],
+        "taint": [
+          "chaos-disruption"
+        ]
+      },
+      "timeout": "15m"
+    },
+    "source": "openshift:external:chaos",
+    "codeLocations": [
+      "/home/krkn/krkn-hub /bin/bash"
+    ],
+    "lifecycle": "informing",
+    "environmentSelector": {
+      "include": "platform == \"aws\""
+    }
+  },
+  {
+    "name": "[sig-chaos] OVN worker pod disruption",
+    "labels": {
+      "DISRUPTIVE": {},
+      "SLOW": {},
+      "pod": {}
+    },
+    "resources": {
+      "isolation": {
+        "conflict": [
+          "chaos-disruption"
+        ],
+        "taint": [
+          "chaos-disruption"
+        ]
+      },
+      "timeout": "20m"
+    },
+    "source": "openshift:external:chaos",
+    "codeLocations": [
+      "/home/krkn/krkn-hub /bin/bash"
+    ],
+    "lifecycle": "informing",
+    "environmentSelector": {
+      "include": "platform == \"aws\""
+    }
+  },
+  {
+    "name": "[sig-chaos] OVN control-plane pod disruption",
+    "labels": {
+      "DISRUPTIVE": {},
+      "SLOW": {},
+      "pod": {}
+    },
+    "resources": {
+      "isolation": {
+        "conflict": [
+          "chaos-disruption"
+        ],
+        "taint": [
+          "chaos-disruption"
+        ]
+      },
+      "timeout": "20m"
+    },
+    "source": "openshift:external:chaos",
+    "codeLocations": [
+      "/home/krkn/krkn-hub /bin/bash"
+    ],
+    "lifecycle": "informing",
+    "environmentSelector": {
+      "include": "platform == \"aws\""
+    }
+  },
+  {
+    "name": "[sig-chaos] Prometheus PVC",
+    "labels": {
+      "DISRUPTIVE": {},
+      "SLOW": {},
+      "pod": {}
+    },
+    "resources": {
+      "isolation": {
+        "conflict": [
+          "chaos-disruption"
+        ],
+        "taint": [
+          "chaos-disruption"
+        ]
+      },
+      "timeout": "10m"
+    },
+    "source": "openshift:external:chaos",
+    "codeLocations": [
+      "/home/krkn/krkn-hub /bin/bash"
+    ],
+    "lifecycle": "informing",
+    "environmentSelector": {
+      "include": "platform == \"aws\""
+    }
+  },
+  {
+    "name": "[sig-chaos] Prometheus pod disruption",
+    "labels": {
+      "DISRUPTIVE": {},
+      "SLOW": {},
+      "pod": {}
+    },
+    "resources": {
+      "isolation": {
+        "conflict": [
+          "chaos-disruption"
+        ],
+        "taint": [
+          "chaos-disruption"
+        ]
+      },
+      "timeout": "15m"
+    },
+    "source": "openshift:external:chaos",
+    "codeLocations": [
+      "/home/krkn/krkn-hub /bin/bash"
+    ],
+    "lifecycle": "informing",
+    "environmentSelector": {
+      "include": "platform == \"aws\""
+    }
+  },
+  {
+    "name": "[sig-chaos] Prometheus SYN flood",
+    "labels": {
+      "DISRUPTIVE": {},
+      "SLOW": {},
+      "pod": {}
+    },
+    "resources": {
+      "isolation": {
+        "conflict": [
+          "chaos-disruption"
+        ],
+        "taint": [
+          "chaos-disruption"
+        ]
+      },
+      "timeout": "15m"
+    },
+    "source": "openshift:external:chaos",
+    "codeLocations": [
+      "/home/krkn/krkn-hub /bin/bash"
+    ],
+    "lifecycle": "informing",
+    "environmentSelector": {
+      "include": "platform == \"aws\""
+    }
+  },
+  {
+    "name": "[sig-chaos] random system pod disruption",
+    "labels": {
+      "DISRUPTIVE": {},
+      "SLOW": {},
+      "pod": {}
+    },
+    "resources": {
+      "isolation": {
+        "conflict": [
+          "chaos-disruption"
+        ],
+        "taint": [
+          "chaos-disruption"
+        ]
+      },
+      "timeout": "15m"
+    },
+    "source": "openshift:external:chaos",
+    "codeLocations": [
+      "/home/krkn/krkn-hub /bin/bash"
+    ],
+    "lifecycle": "informing",
+    "environmentSelector": {
+      "include": "platform == \"aws\""
+    }
+  },
+  {
+    "name": "[sig-chaos] kube-apiserver disruption",
+    "labels": {
+      "DISRUPTIVE": {},
+      "SLOW": {},
+      "pod": {}
+    },
+    "resources": {
+      "isolation": {
+        "conflict": [
+          "chaos-disruption"
+        ],
+        "taint": [
+          "chaos-disruption"
+        ]
+      },
+      "timeout": "15m"
+    },
+    "source": "openshift:external:chaos",
+    "codeLocations": [
+      "/home/krkn/krkn-hub /bin/bash"
+    ],
+    "lifecycle": "informing",
+    "environmentSelector": {
+      "include": "platform == \"aws\""
+    }
+  },
+  {
+    "name": "[sig-chaos] cluster power outage",
+    "labels": {
+      "DISRUPTIVE": {},
+      "SLOW": {},
+      "node": {}
+    },
+    "resources": {
+      "isolation": {
+        "conflict": [
+          "chaos-disruption"
+        ],
+        "taint": [
+          "chaos-disruption"
+        ]
+      },
+      "timeout": "45m"
+    },
+    "source": "openshift:external:chaos",
+    "codeLocations": [
+      "/home/krkn/krkn-hub /bin/bash"
+    ],
+    "lifecycle": "informing",
+    "environmentSelector": {
+      "include": "platform == \"aws\""
+    }
+  },
+  {
+    "name": "[sig-chaos] zone outage",
+    "labels": {
+      "DISRUPTIVE": {},
+      "SLOW": {},
+      "node": {}
+    },
+    "resources": {
+      "isolation": {
+        "conflict": [
+          "chaos-disruption"
+        ],
+        "taint": [
+          "chaos-disruption"
+        ]
+      },
+      "timeout": "40m"
+    },
+    "source": "openshift:external:chaos",
+    "codeLocations": [
+      "/home/krkn/krkn-hub /bin/bash"
+    ],
+    "lifecycle": "informing",
+    "environmentSelector": {
+      "include": "platform == \"aws\""
+    }
+  },
+  {
+    "name": "[sig-chaos] control-plane node stop/start",
+    "labels": {
+      "DISRUPTIVE": {},
+      "SLOW": {},
+      "node": {}
+    },
+    "resources": {
+      "isolation": {
+        "conflict": [
+          "chaos-disruption"
+        ],
+        "taint": [
+          "chaos-disruption"
+        ]
+      },
+      "timeout": "45m"
+    },
+    "source": "openshift:external:chaos",
+    "codeLocations": [
+      "/home/krkn/krkn-hub /bin/bash"
+    ],
+    "lifecycle": "informing",
+    "environmentSelector": {
+      "include": "platform == \"aws\""
+    }
+  },
+  {
+    "name": "[sig-chaos] control-plane network chaos",
+    "labels": {
+      "DISRUPTIVE": {},
+      "SLOW": {},
+      "node": {}
+    },
+    "resources": {
+      "isolation": {
+        "conflict": [
+          "chaos-disruption"
+        ],
+        "taint": [
+          "chaos-disruption"
+        ]
+      },
+      "timeout": "25m"
+    },
+    "source": "openshift:external:chaos",
+    "codeLocations": [
+      "/home/krkn/krkn-hub /bin/bash"
+    ],
+    "lifecycle": "informing",
+    "environmentSelector": {
+      "include": "platform == \"aws\""
+    }
+  },
+  {
+    "name": "[sig-chaos] etcd pod-network chaos",
+    "labels": {
+      "DISRUPTIVE": {},
+      "SLOW": {},
+      "node": {}
+    },
+    "resources": {
+      "isolation": {
+        "conflict": [
+          "chaos-disruption"
+        ],
+        "taint": [
+          "chaos-disruption"
+        ]
+      },
+      "timeout": "15m"
+    },
+    "source": "openshift:external:chaos",
+    "codeLocations": [
+      "/home/krkn/krkn-hub /bin/bash"
+    ],
+    "lifecycle": "informing",
+    "environmentSelector": {
+      "include": "platform == \"aws\""
+    }
+  },
+  {
+    "name": "[sig-chaos] worker memory hog",
+    "labels": {
+      "DISRUPTIVE": {},
+      "SLOW": {},
+      "node": {}
+    },
+    "resources": {
+      "isolation": {
+        "conflict": [
+          "chaos-disruption"
+        ],
+        "taint": [
+          "chaos-disruption"
+        ]
+      },
+      "timeout": "20m"
+    },
+    "source": "openshift:external:chaos",
+    "codeLocations": [
+      "/home/krkn/krkn-hub /bin/bash"
+    ],
+    "lifecycle": "informing",
+    "environmentSelector": {
+      "include": "platform == \"aws\""
+    }
+  },
+  {
+    "name": "[sig-chaos] worker CPU hog",
+    "labels": {
+      "DISRUPTIVE": {},
+      "SLOW": {},
+      "node": {}
+    },
+    "resources": {
+      "isolation": {
+        "conflict": [
+          "chaos-disruption"
+        ],
+        "taint": [
+          "chaos-disruption"
+        ]
+      },
+      "timeout": "20m"
+    },
+    "source": "openshift:external:chaos",
+    "codeLocations": [
+      "/home/krkn/krkn-hub /bin/bash"
+    ],
+    "lifecycle": "informing",
+    "environmentSelector": {
+      "include": "platform == \"aws\""
+    }
+  },
+  {
+    "name": "[sig-chaos] worker IO hog",
+    "labels": {
+      "DISRUPTIVE": {},
+      "SLOW": {},
+      "node": {}
+    },
+    "resources": {
+      "isolation": {
+        "conflict": [
+          "chaos-disruption"
+        ],
+        "taint": [
+          "chaos-disruption"
+        ]
+      },
+      "timeout": "20m"
+    },
+    "source": "openshift:external:chaos",
+    "codeLocations": [
+      "/home/krkn/krkn-hub /bin/bash"
+    ],
+    "lifecycle": "informing",
+    "environmentSelector": {
+      "include": "platform == \"aws\""
+    }
+  },
+  {
+    "name": "[sig-chaos] worker node stop/start",
+    "labels": {
+      "DISRUPTIVE": {},
+      "SLOW": {},
+      "node": {}
+    },
+    "resources": {
+      "isolation": {
+        "conflict": [
+          "chaos-disruption"
+        ],
+        "taint": [
+          "chaos-disruption"
+        ]
+      },
+      "timeout": "40m"
+    },
+    "source": "openshift:external:chaos",
+    "codeLocations": [
+      "/home/krkn/krkn-hub /bin/bash"
+    ],
+    "lifecycle": "informing",
+    "environmentSelector": {
+      "include": "platform == \"aws\""
+    }
+  }
+]

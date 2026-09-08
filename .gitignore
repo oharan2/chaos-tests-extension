@@ -1,0 +1,7 @@
+/chaos-tests
+/chaos-tests-ext
+/chaos-tests-ext.gz
+*.test
+*.exe
+.cursor/
+AGENTS.md

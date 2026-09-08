@@ -1,0 +1,459 @@
+[
+  {
+    "name": "[sig-chaos] etcd pod disruption",
+    "entrypoint": "/bin/bash",
+    "args": ["/home/krkn/krkn-hub/ote_wrapper.sh", "./pod-scenarios/prow_run.sh"],
+    "workDir": "/home/krkn/krkn-hub",
+    "informing": true,
+    "tags": ["SLOW", "DISRUPTIVE", "pod"],
+    "envVars": {
+      "TARGET_NAMESPACE": "openshift-etcd",
+      "POD_LABEL": "k8s-app=etcd",
+      "DISRUPTION_COUNT": "1",
+      "EXPECTED_POD_COUNT": "3",
+      "KILL_TIMEOUT": "180",
+      "EXPECTED_RECOVERY_TIME": "101",
+      "ITERATIONS": "1",
+      "WAIT_DURATION": "300",
+      "TELEMETRY_RUN_TAG": "etcd-pod-disruption",
+      "JUNIT_TESTCASE": "[Jira:\"Etcd\"] etcd pod disruption",
+      "HEALTH_CHECK_EXIT_ON_FAILURE": "False"
+    },
+    "includeCEL": "platform == \"aws\"",
+    "timeout": "15m"
+  },
+  {
+    "name": "[sig-chaos] etcd container hangup",
+    "entrypoint": "/bin/bash",
+    "args": ["/home/krkn/krkn-hub/ote_wrapper.sh", "./container-scenarios/prow_run.sh"],
+    "workDir": "/home/krkn/krkn-hub",
+    "informing": true,
+    "tags": ["SLOW", "DISRUPTIVE", "pod"],
+    "envFrom": {
+      "EXPECTED_RECOVERY_TIME": "CONTAINER_ETCD_RECOVERY_TIME"
+    },
+    "envVars": {
+      "TARGET_NAMESPACE": "openshift-etcd",
+      "LABEL_SELECTOR": "k8s-app=etcd",
+      "DISRUPTION_COUNT": "1",
+      "CONTAINER_NAME": "etcd",
+      "ACTION": "1",
+      "ITERATIONS": "1",
+      "RETRY_WAIT": "60",
+      "WAIT_DURATION": "300",
+      "ENABLE_ALERTS": "False",
+      "TELEMETRY_RUN_TAG": "etcd-container-hangup",
+      "JUNIT_TESTCASE": "[Jira:\"Etcd\"] etcd container disruption",
+      "HEALTH_CHECK_EXIT_ON_FAILURE": "False"
+    },
+    "includeCEL": "platform == \"aws\"",
+    "timeout": "15m"
+  },
+  {
+    "name": "[sig-chaos] etcd time skew",
+    "entrypoint": "/bin/bash",
+    "args": ["/home/krkn/krkn-hub/ote_wrapper.sh", "./time-scenarios/prow_run.sh"],
+    "workDir": "/home/krkn/krkn-hub",
+    "informing": true,
+    "tags": ["SLOW", "DISRUPTIVE", "pod"],
+    "envVars": {
+      "ACTION": "skew_time",
+      "OBJECT_TYPE": "pod",
+      "TARGET_NAMESPACE": "openshift-etcd",
+      "CONTAINER_NAME": "etcd",
+      "LABEL_SELECTOR": "app=etcd",
+      "RETRY_WAIT": "60",
+      "WAIT_DURATION": "100",
+      "ITERATIONS": "1",
+      "ENABLE_ALERTS": "False",
+      "TELEMETRY_RUN_TAG": "time-scenarios",
+      "JUNIT_TESTCASE": "[Jira:\"Etcd\"] etcd time skew",
+      "HEALTH_CHECK_EXIT_ON_FAILURE": "False"
+    },
+    "includeCEL": "platform == \"aws\"",
+    "timeout": "10m"
+  },
+  {
+    "name": "[sig-chaos] console application outage",
+    "entrypoint": "/bin/bash",
+    "args": ["/home/krkn/krkn-hub/ote_wrapper.sh", "./application-outages/prow_run.sh"],
+    "workDir": "/home/krkn/krkn-hub",
+    "informing": true,
+    "tags": ["SLOW", "DISRUPTIVE", "pod"],
+    "envVars": {
+      "TARGET_NAMESPACE": "openshift-console",
+      "POD_SELECTOR": "{app: console}",
+      "BLOCK_TRAFFIC_TYPE": "- Ingress",
+      "ITERATIONS": "1",
+      "RETRY_WAIT": "60",
+      "WAIT_DURATION": "300",
+      "ENABLE_ALERTS": "False",
+      "TELEMETRY_RUN_TAG": "console-app-outage",
+      "HEALTH_CHECK_EXIT_ON_FAILURE": "False"
+    },
+    "includeCEL": "platform == \"aws\"",
+    "timeout": "15m"
+  },
+  {
+    "name": "[sig-chaos] OVN worker pod disruption",
+    "entrypoint": "/bin/bash",
+    "args": ["/home/krkn/krkn-hub/ote_wrapper.sh", "./pod-scenarios/prow_run.sh"],
+    "workDir": "/home/krkn/krkn-hub",
+    "informing": true,
+    "tags": ["SLOW", "DISRUPTIVE", "pod"],
+    "envVars": {
+      "TARGET_NAMESPACE": "openshift-ovn-kubernetes",
+      "POD_LABEL": "app=ovnkube-node",
+      "DISRUPTION_COUNT": "1",
+      "EXPECTED_POD_COUNT": "3",
+      "KILL_TIMEOUT": "180",
+      "EXPECTED_RECOVERY_TIME": "43",
+      "WAIT_DURATION": "500",
+      "TELEMETRY_RUN_TAG": "prow-ovn-pod-disruption",
+      "JUNIT_TESTCASE": "[Jira:\"Networking / ovn-kubernetes\"] OVN-kube-node pod disruption",
+      "HEALTH_CHECK_EXIT_ON_FAILURE": "False"
+    },
+    "includeCEL": "platform == \"aws\"",
+    "timeout": "20m"
+  },
+  {
+    "name": "[sig-chaos] OVN control-plane pod disruption",
+    "entrypoint": "/bin/bash",
+    "args": ["/home/krkn/krkn-hub/ote_wrapper.sh", "./pod-scenarios/prow_run.sh"],
+    "workDir": "/home/krkn/krkn-hub",
+    "informing": true,
+    "tags": ["SLOW", "DISRUPTIVE", "pod"],
+    "envVars": {
+      "TARGET_NAMESPACE": "openshift-ovn-kubernetes",
+      "POD_LABEL": "app=ovnkube-control-plane",
+      "DISRUPTION_COUNT": "1",
+      "EXPECTED_POD_COUNT": "2",
+      "KILL_TIMEOUT": "180",
+      "EXPECTED_RECOVERY_TIME": "4",
+      "WAIT_DURATION": "500",
+      "TELEMETRY_RUN_TAG": "prow-ovn-pod-disruption",
+      "JUNIT_TESTCASE": "[Jira:\"Networking / ovn-kubernetes\"] OVN control plane pod disruption",
+      "HEALTH_CHECK_EXIT_ON_FAILURE": "False"
+    },
+    "includeCEL": "platform == \"aws\"",
+    "timeout": "20m"
+  },
+  {
+    "name": "[sig-chaos] Prometheus PVC",
+    "entrypoint": "/bin/bash",
+    "args": ["/home/krkn/krkn-hub/ote_wrapper.sh", "./pvc-scenario/prow_run.sh"],
+    "workDir": "/home/krkn/krkn-hub",
+    "informing": true,
+    "tags": ["SLOW", "DISRUPTIVE", "pod"],
+    "envVars": {
+      "TARGET_NAMESPACE": "openshift-monitoring",
+      "PVC_NAME": "prometheus-k8s-db-prometheus-k8s-0",
+      "POD_NAME": "prometheus-k8s-0",
+      "FILL_PERCENTAGE": "75",
+      "DURATION": "60",
+      "WAIT_DURATION": "100",
+      "ENABLE_ALERTS": "False",
+      "TELEMETRY_RUN_TAG": "pvc-scenario",
+      "JUNIT_TESTCASE": "[Jira:\"Monitoring\"] pvc scenarios prometheus pod",
+      "HEALTH_CHECK_EXIT_ON_FAILURE": "False"
+    },
+    "includeCEL": "platform == \"aws\"",
+    "timeout": "10m"
+  },
+  {
+    "name": "[sig-chaos] Prometheus pod disruption",
+    "entrypoint": "/bin/bash",
+    "args": ["/home/krkn/krkn-hub/ote_wrapper.sh", "./pod-scenarios/prow_run.sh"],
+    "workDir": "/home/krkn/krkn-hub",
+    "informing": true,
+    "tags": ["SLOW", "DISRUPTIVE", "pod"],
+    "envVars": {
+      "TARGET_NAMESPACE": "openshift-monitoring",
+      "POD_LABEL": "statefulset.kubernetes.io/pod-name=prometheus-k8s-0",
+      "DISRUPTION_COUNT": "1",
+      "EXPECTED_POD_COUNT": "1",
+      "KILL_TIMEOUT": "180",
+      "EXPECTED_RECOVERY_TIME": "95",
+      "WAIT_DURATION": "300",
+      "TELEMETRY_RUN_TAG": "prometheus-pod-disruption",
+      "JUNIT_TESTCASE": "[Jira:\"Monitoring\"] prometheus pod disruption",
+      "HEALTH_CHECK_EXIT_ON_FAILURE": "False"
+    },
+    "includeCEL": "platform == \"aws\"",
+    "timeout": "15m"
+  },
+  {
+    "name": "[sig-chaos] Prometheus SYN flood",
+    "entrypoint": "/bin/bash",
+    "args": ["/home/krkn/krkn-hub/ote_wrapper.sh", "./syn-flood/prow_run.sh"],
+    "workDir": "/home/krkn/krkn-hub",
+    "informing": true,
+    "tags": ["SLOW", "DISRUPTIVE", "pod"],
+    "envVars": {
+      "TARGET_NAMESPACE": "openshift-monitoring",
+      "TARGET_SERVICE": "prometheus-k8s",
+      "TARGET_PORT": "9091",
+      "PACKET_SIZE": "120",
+      "WINDOW_SIZE": "64",
+      "DISRUPTION_COUNT": "1",
+      "WAIT_DURATION": "300",
+      "ENABLE_ALERTS": "False",
+      "TELEMETRY_RUN_TAG": "prometheus-pod-disruption",
+      "JUNIT_TESTCASE": "[Jira:\"Monitoring\"] syn flood prometheus disruption",
+      "HEALTH_CHECK_EXIT_ON_FAILURE": "False"
+    },
+    "includeCEL": "platform == \"aws\"",
+    "timeout": "15m"
+  },
+  {
+    "name": "[sig-chaos] random system pod disruption",
+    "entrypoint": "/bin/bash",
+    "args": ["/home/krkn/krkn-hub/ote_wrapper.sh", "./pod-scenarios/prow_run.sh"],
+    "workDir": "/home/krkn/krkn-hub",
+    "informing": true,
+    "tags": ["SLOW", "DISRUPTIVE", "pod"],
+    "envVars": {
+      "TARGET_NAMESPACE": "openshift-.*",
+      "DISRUPTION_COUNT": "1",
+      "KILL_TIMEOUT": "180",
+      "EXPECTED_RECOVERY_TIME": "120",
+      "WAIT_DURATION": "300",
+      "TELEMETRY_RUN_TAG": "prow-random-ocp-pod-disruption",
+      "HEALTH_CHECK_EXIT_ON_FAILURE": "False"
+    },
+    "includeCEL": "platform == \"aws\"",
+    "timeout": "15m"
+  },
+  {
+    "name": "[sig-chaos] kube-apiserver disruption",
+    "entrypoint": "/bin/bash",
+    "args": ["/home/krkn/krkn-hub/ote_wrapper.sh", "./pod-scenarios/prow_run.sh"],
+    "workDir": "/home/krkn/krkn-hub",
+    "informing": true,
+    "tags": ["SLOW", "DISRUPTIVE", "pod"],
+    "envVars": {
+      "TARGET_NAMESPACE": "openshift-kube-apiserver",
+      "POD_LABEL": "app=openshift-kube-apiserver",
+      "DISRUPTION_COUNT": "1",
+      "EXPECTED_POD_COUNT": "3",
+      "KILL_TIMEOUT": "180",
+      "EXPECTED_RECOVERY_TIME": "97",
+      "WAIT_DURATION": "300",
+      "TELEMETRY_RUN_TAG": "kube-apiserver-pod-disruption",
+      "JUNIT_TESTCASE": "[Jira:\"kube-apiserver\"] pod disruption",
+      "HEALTH_CHECK_EXIT_ON_FAILURE": "False"
+    },
+    "includeCEL": "platform == \"aws\"",
+    "timeout": "15m"
+  },
+  {
+    "name": "[sig-chaos] cluster power outage",
+    "entrypoint": "/bin/bash",
+    "args": ["/home/krkn/krkn-hub/ote_wrapper.sh", "./power-outage/prow_run.sh"],
+    "workDir": "/home/krkn/krkn-hub",
+    "informing": true,
+    "tags": ["SLOW", "DISRUPTIVE", "node"],
+    "envFrom": {
+      "TIMEOUT": "POWER_OUTAGE_TIMEOUT"
+    },
+    "envVars": {
+      "OTE_AWS_SETUP": "cluster-profile",
+      "SHUTDOWN_DURATION": "600",
+      "CLOUD_TYPE": "aws",
+      "ITERATIONS": "1",
+      "WAIT_DURATION": "600",
+      "ALERTS_PATH": "./node-disruptions/slos",
+      "TELEMETRY_RUN_TAG": "power-outages",
+      "JUNIT_TESTCASE": "[Jira:\"Cloud Compute / Machine API Providers\"] power outage",
+      "HEALTH_CHECK_EXIT_ON_FAILURE": "False"
+    },
+    "includeCEL": "platform == \"aws\"",
+    "timeout": "45m"
+  },
+  {
+    "name": "[sig-chaos] zone outage",
+    "entrypoint": "/bin/bash",
+    "args": ["/home/krkn/krkn-hub/ote_wrapper.sh", "./zone-outages/prow_run.sh"],
+    "workDir": "/home/krkn/krkn-hub",
+    "informing": true,
+    "tags": ["SLOW", "DISRUPTIVE", "node"],
+    "envVars": {
+      "OTE_AWS_SETUP": "zone-outage",
+      "TIMEOUT": "600",
+      "SHUTDOWN_DURATION": "600",
+      "CLOUD_TYPE": "aws",
+      "WAIT_DURATION": "600",
+      "ALERTS_PATH": "./node-disruptions/slos",
+      "TELEMETRY_EVENTS_BACKUP": "False",
+      "TELEMETRY_RUN_TAG": "zone-outages",
+      "JUNIT_TESTCASE": "[Jira:\"Cloud Compute / Machine API Providers\"] zone outage",
+      "HEALTH_CHECK_EXIT_ON_FAILURE": "False"
+    },
+    "includeCEL": "platform == \"aws\"",
+    "timeout": "40m"
+  },
+  {
+    "name": "[sig-chaos] control-plane node stop/start",
+    "entrypoint": "/bin/bash",
+    "args": ["/home/krkn/krkn-hub/ote_wrapper.sh", "./node-disruptions/prow_run.sh"],
+    "workDir": "/home/krkn/krkn-hub",
+    "informing": true,
+    "tags": ["SLOW", "DISRUPTIVE", "node"],
+    "envFrom": {
+      "TIMEOUT": "NODE_OUTAGE_TIMEOUT"
+    },
+    "envVars": {
+      "OTE_AWS_SETUP": "cluster-profile",
+      "ACTION": "node_stop_start_scenario",
+      "LABEL_SELECTOR": "node-role.kubernetes.io/control-plane=",
+      "CLOUD_TYPE": "aws",
+      "WAIT_DURATION": "900",
+      "ALERTS_PATH": "./node-disruptions/slos",
+      "TELEMETRY_EVENTS_BACKUP": "False",
+      "TELEMETRY_RUN_TAG": "master-outage",
+      "JUNIT_TESTCASE": "[Jira:\"Cloud Compute / ControlPlaneMachineSet\"] node disruption master outage",
+      "HEALTH_CHECK_EXIT_ON_FAILURE": "False"
+    },
+    "includeCEL": "platform == \"aws\"",
+    "timeout": "45m"
+  },
+  {
+    "name": "[sig-chaos] control-plane network chaos",
+    "entrypoint": "/bin/bash",
+    "args": ["/home/krkn/krkn-hub/ote_wrapper.sh", "./network-chaos/prow_run.sh"],
+    "workDir": "/home/krkn/krkn-hub",
+    "informing": true,
+    "tags": ["SLOW", "DISRUPTIVE", "node"],
+    "envVars": {
+      "DURATION": "600",
+      "LABEL_SELECTOR": "node-role.kubernetes.io/control-plane",
+      "INSTANCE_COUNT": "1",
+      "EGRESS": "{latency: 15ms}",
+      "WAIT_DURATION": "300",
+      "ENABLE_ALERTS": "False",
+      "TELEMETRY_RUN_TAG": "network-chaos",
+      "JUNIT_TESTCASE": "[Jira:\"Cloud Compute / ControlPlaneMachineSet\"] network chaos",
+      "HEALTH_CHECK_EXIT_ON_FAILURE": "False"
+    },
+    "includeCEL": "platform == \"aws\"",
+    "timeout": "25m"
+  },
+  {
+    "name": "[sig-chaos] etcd pod-network chaos",
+    "entrypoint": "/bin/bash",
+    "args": ["/home/krkn/krkn-hub/ote_wrapper.sh", "./pod-network-chaos/prow_run.sh"],
+    "workDir": "/home/krkn/krkn-hub",
+    "informing": true,
+    "tags": ["SLOW", "DISRUPTIVE", "node"],
+    "envVars": {
+      "TEST_NAMESPACE": "openshift-etcd",
+      "TRAFFIC_TYPE": "[ingress, egress]",
+      "LABEL_SELECTOR": "k8s-app=etcd",
+      "INSTANCE_COUNT": "1",
+      "TEST_DURATION": "120",
+      "WAIT_DURATION": "300",
+      "ENABLE_ALERTS": "False",
+      "METRICS_PATH": "/home/krkn/kraken/config/metrics-aggregated.yaml",
+      "TELEMETRY_RUN_TAG": "pod-network-chaos",
+      "JUNIT_TESTCASE": "[Jira:\"Etcd\"] etcd pod network chaos",
+      "HEALTH_CHECK_EXIT_ON_FAILURE": "False"
+    },
+    "includeCEL": "platform == \"aws\"",
+    "timeout": "15m"
+  },
+  {
+    "name": "[sig-chaos] worker memory hog",
+    "entrypoint": "/bin/bash",
+    "args": ["/home/krkn/krkn-hub/ote_wrapper.sh", "./memory-hog/prow_run.sh"],
+    "workDir": "/home/krkn/krkn-hub",
+    "informing": true,
+    "tags": ["SLOW", "DISRUPTIVE", "node"],
+    "envVars": {
+      "TOTAL_CHAOS_DURATION": "600",
+      "MEMORY_CONSUMPTION_PERCENTAGE": "90%",
+      "NUMBER_OF_WORKERS": "3",
+      "NUMBER_OF_NODES": "1",
+      "TARGET_NAMESPACE": "default",
+      "NODE_SELECTOR": "node-role.kubernetes.io/worker=",
+      "WAIT_DURATION": "100",
+      "ENABLE_ALERTS": "False",
+      "TELEMETRY_RUN_TAG": "memory-hog",
+      "JUNIT_TESTCASE": "[Jira:\"Node / Kubelet\"] memory hog",
+      "HEALTH_CHECK_EXIT_ON_FAILURE": "False"
+    },
+    "includeCEL": "platform == \"aws\"",
+    "timeout": "20m"
+  },
+  {
+    "name": "[sig-chaos] worker CPU hog",
+    "entrypoint": "/bin/bash",
+    "args": ["/home/krkn/krkn-hub/ote_wrapper.sh", "./cpu-hog/prow_run.sh"],
+    "workDir": "/home/krkn/krkn-hub",
+    "informing": true,
+    "tags": ["SLOW", "DISRUPTIVE", "node"],
+    "envVars": {
+      "TOTAL_CHAOS_DURATION": "600",
+      "NODE_CPU_PERCENTAGE": "90",
+      "NODE_CPU_CORE": "3",
+      "NUMBER_OF_NODES": "1",
+      "TARGET_NAMESPACE": "default",
+      "NODE_SELECTOR": "node-role.kubernetes.io/worker=",
+      "WAIT_DURATION": "100",
+      "ENABLE_ALERTS": "False",
+      "TELEMETRY_RUN_TAG": "cpu-hog",
+      "JUNIT_TESTCASE": "[Jira:\"Node / Kubelet\"] cpu hog",
+      "HEALTH_CHECK_EXIT_ON_FAILURE": "False"
+    },
+    "includeCEL": "platform == \"aws\"",
+    "timeout": "20m"
+  },
+  {
+    "name": "[sig-chaos] worker IO hog",
+    "entrypoint": "/bin/bash",
+    "args": ["/home/krkn/krkn-hub/ote_wrapper.sh", "./io-hog/prow_run.sh"],
+    "workDir": "/home/krkn/krkn-hub",
+    "informing": true,
+    "tags": ["SLOW", "DISRUPTIVE", "node"],
+    "envVars": {
+      "TOTAL_CHAOS_DURATION": "600",
+      "NODE_CPU_PERCENTAGE": "90",
+      "NUMBER_OF_NODES": "1",
+      "IO_BLOCK_SIZE": "1m",
+      "IO_WORKERS": "5",
+      "IO_WRITE_BYTES": "90%",
+      "TARGET_NAMESPACE": "default",
+      "NODE_SELECTOR": "node-role.kubernetes.io/worker=",
+      "WAIT_DURATION": "100",
+      "ENABLE_ALERTS": "False",
+      "TELEMETRY_RUN_TAG": "cpu-hog",
+      "JUNIT_TESTCASE": "[Jira:\"Node / Kubelet\"] io hog",
+      "HEALTH_CHECK_EXIT_ON_FAILURE": "False"
+    },
+    "includeCEL": "platform == \"aws\"",
+    "timeout": "20m"
+  },
+  {
+    "name": "[sig-chaos] worker node stop/start",
+    "entrypoint": "/bin/bash",
+    "args": ["/home/krkn/krkn-hub/ote_wrapper.sh", "./node-disruptions/prow_run.sh"],
+    "workDir": "/home/krkn/krkn-hub",
+    "informing": true,
+    "tags": ["SLOW", "DISRUPTIVE", "node"],
+    "envFrom": {
+      "TIMEOUT": "NODE_OUTAGE_TIMEOUT"
+    },
+    "envVars": {
+      "OTE_AWS_SETUP": "cluster-profile",
+      "ACTION": "node_stop_start_scenario",
+      "LABEL_SELECTOR": "node-role.kubernetes.io/worker=",
+      "CLOUD_TYPE": "aws",
+      "WAIT_DURATION": "600",
+      "ALERTS_PATH": "./node-disruptions/slos",
+      "TELEMETRY_RUN_TAG": "master-outage",
+      "JUNIT_TESTCASE": "[Jira:\"Node / Kubelet\"] node disruption worker outage",
+      "HEALTH_CHECK_EXIT_ON_FAILURE": "False"
+    },
+    "includeCEL": "platform == \"aws\"",
+    "timeout": "40m"
+  }
+]
