@@ -1,6 +1,6 @@
 # chaos-tests-extension
 
-This repository is the Krkn chaos **OpenShift Tests Extension** product. Canonical location: [`github.com/RedHatQE/chaos-tests-extension`](https://github.com/RedHatQE/chaos-tests-extension). It wraps krkn-hub; it does not rewrite Krkn. It is not a fork of a `redhat-chaos` copy of this tree, and it does not live in `openshift-eng/openshift-tests-extension`.
+This repository is the Krkn chaos **OpenShift Tests Extension** product ([`github.com/RedHatQE/chaos-tests-extension`](https://github.com/RedHatQE/chaos-tests-extension)). It wraps krkn-hub; it does not rewrite Krkn. It does not live in `openshift-eng/openshift-tests-extension`.
 
 ## Binary and suites
 
@@ -13,7 +13,7 @@ All first-slice specs start **informing**. They have no `Parents` field; do not 
 
 Prow / origin CLI is `openshift-tests run chaos/disruption/pod` or `openshift-tests run chaos/disruption/node`. Do not pass `--timeout` or `--max-parallel-tests`. `run-suite` exists only on this binary for local use.
 
-OTE identity is unchanged under RedHatQE: `NewExtension("openshift", "external", "chaos")`, IST keys `testextension.redhat.io/component` + `/binary`, and `setup-out-of-payload`.
+OTE identity: `NewExtension("openshift", "external", "chaos")`, IST keys `testextension.redhat.io/component` + `/binary`, and `setup-out-of-payload`.
 
 ## Local
 
