@@ -8,9 +8,8 @@ package adapter
 // ScenarioSpec is the only per-scenario input the adapter understands.
 //
 // The adapter is scenario-agnostic: it must not branch on Name, Tags, or any
-// chaos plugin type (etcd vs node-stop vs hog vs …). Adding a new Krkn
-// scenario — including ones outside the first-slice OCP jobs — is a new JSON
-// object in the registry, not a Go change.
+// chaos plugin type (etcd vs node-stop vs hog vs …). Adding a scenario is
+// another JSON object, not a Python test file (and not a Go change).
 //
 // Krkn-hub already configures every plugin through environment variables
 // (prow_run.sh → envsubst → run_kraken.py --config). This struct is that

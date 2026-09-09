@@ -1,5 +1,7 @@
 .git
 .cursor
+.cursorrules
+.continuerules
 *.md
 LICENSE
 OWNERS

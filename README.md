@@ -4,7 +4,12 @@ This repository is the Krkn chaos **OpenShift Tests Extension** product. Canonic
 
 ## Binary and suites
 
-Binary: `cmd/chaos-tests`. Suites: `chaos/disruption/pod` (11 specs) and `chaos/disruption/node` (9 specs). All first-slice specs start **informing**.
+Binary: `cmd/chaos-tests`. The two suites in `cmd/chaos-tests/main.go` are standalone:
+
+- `chaos/disruption/pod` (11 specs)
+- `chaos/disruption/node` (9 specs)
+
+All first-slice specs start **informing**. They have no `Parents` field; do not nest them under `openshift/conformance/*`.
 
 Prow / origin CLI is `openshift-tests run chaos/disruption/pod` or `openshift-tests run chaos/disruption/node`. Do not pass `--timeout` or `--max-parallel-tests`. `run-suite` exists only on this binary for local use.
 
@@ -42,5 +47,14 @@ Still chaos-owned:
 ## Module and registry
 
 Module: `github.com/RedHatQE/chaos-tests-extension`. Library pin: `github.com/openshift-eng/openshift-tests-extension v0.0.0-20260812190735-a8b44e9f9fed`. No `replace`.
+
+Production flow:
+
+1. OTE spec
+2. `ote_wrapper.sh`
+3. hub `prow_run.sh`
+4. `run_kraken.py`
+
+Each scenario is a JSON object in `test/chaos/krkn_scenarios.json`. The Go adapter is scenario-agnostic. Adding a scenario is another JSON object, not a Python test file.
 
 Scenario registry: `test/chaos/krkn_scenarios.json`. Wrapper: `images/ote_wrapper.sh` (replaces Prow `*-commands.sh`).
